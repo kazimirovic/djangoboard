@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --quote-color: green;
+  --accent-color: DarkOliveGreen;
+  --main-background-color: #fcf7f5;
+  --second-background-color: BlanchedAlmond;
+  --main-color: black;
+}
+
+span.quote {
+  color: var(--quote-color);
+}
+
+h1, h2, h4, h5, h6, a, span.poster-name, span.post-id {
+  color: var(--accent-color);
+}
+
+body {
+  background-color: var(--main-background-color);
+  color: var(--main-color);
+}
+
+#draggable-header {
+  display: none;
+}
+
+div.post-container {
+  display: block;
+  overflow: auto;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  background-color: var(--second-background-color);
+}
+
+div.post-preview-container {
+  background-color: var(--second-background-color);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+div.post-info {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+div.post-comment {
+  word-wrap: break-word;
+  text-align: left;
+  white-space: pre-wrap;
+  padding-bottom: 5px;
+  margin-left: 10px;
+}
+
+div.draggable-header {
+  color: var(--main-color);
+}
+
+div.post-form input, textarea, table {
+  width: 100%;
+}
+
+div.attachments-container img {
+  object-fit: contain;
+  margin: 10px;
+}
+
+div.thread-container {
+  overflow: auto;
+}
+
+@media screen and (max-width: 1025px) {
+  div.post-form textarea {
+    resize: none;
+  }
+}
+
+div.post-form label {
+  float: left;
+}
+
+@media screen and (min-width: 1025px) {
+  .nojs #draggable {
+    position: fixed;
+    right: 12px;
+  }
+
+  .nojs div.post-container, div.small-post-container, .thread-container {
+    max-width: 60%;
+  }
+
+  .nojs div.small-post-container {
+    padding-left: 20px;
+  }
+
+  div.post-container {
+    margin-left: 20px;
+  }
+
+  .attachments-container {
+    float: left;
+  }
+
+  .js #draggable {
+    position: fixed;
+    left: 50%;
+    z-index: 9;
+    background-color: var(--main-background-color);
+    border: 1px solid #d3d3d3;
+  }
+
+  .js #draggable-header {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: var(--main-background-color);
+    color: var(--main-color);
+    ;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    display: block;
+  }
+
+  .js #draggable .close-button {
+    float: left;
+    cursor: default;
+  }
+
+  .nojs #draggable-header {
+    display: none;
+  }
+
+  .js .post-id {
+    cursor: pointer;
+  }
+}
+
+.topbar {
+  margin: 2px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.centered-header {
+  text-align: center;
+}
+
+.bottomleft {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+}
+
+.help {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50% background-color:;
+}
+
+span.orange {
+  color: orange;
+}
+
+div.replies {
+  margin-left: 5px;
+  font-size: small;
+}

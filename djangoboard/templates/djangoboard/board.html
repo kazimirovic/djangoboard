@@ -1,0 +1,61 @@
+{% extends "djangoboard/base.html" %}
+{% load static %}
+
+{% block title %} {{ board.name }} - {{ board.short_description }} {% endblock %}
+
+{%block head%}
+<style>
+.nojs #nondraggable-reveal {
+  display: None;
+}
+
+.js #nondraggable-reveal{
+  cursor: pointer;
+  color: var(--accent-color);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+</style>
+{%endblock%}
+
+
+{%block header%} <h1 align="center"> {{board.short_description}} </h1>
+<h3 align="center"> {{board.description}} </h3>
+{%endblock%}
+
+{% block content %}
+
+
+<div onclick="toggle_visibility('nondraggable')" id="nondraggable-reveal">[New Thread]</div>
+<script src="{% static 'djangoboard/toggle_visibility.js' %}"></script>
+<div id="nondraggable" style="display: None;">
+
+    {% include "djangoboard/thread_form_snippet.html" %}
+</div>
+
+
+<div class="all-posts-container">
+    {% for thread in threads %}
+    {% include "djangoboard/thread_snippet.html"%}
+    {% for post in thread.posts.all %}
+    {% load postmarkup %}
+    <div class="post-container post-preview-container" id="post-{{post.id}}">
+
+        <div class="post-info">
+            <span class="post-subject">{{ post.subject }}</span>
+            <span class="poster-name">{{ post.name }}</span>
+            <span class="post-date">{{ post.date }}</span>
+            <span class="post-id">
+                    <a href="{% url 'djangoboard:thread' thread.id post.id %}#{{post.id}}">&gt;&gt;{{ post.id }}</a>
+                </span>
+        </div>
+        {% include "djangoboard/attachments_snippet.html" with attachments=post.attachments.all%}
+        <div class="post-comment">{{ post.comment|postmarkup }}</div>
+
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "djangoboard/base.html" %}
+{% load startswith %}
+{% load static %}
+{% load postmarkup %}
+
+{% block title %} /{{thread.board.name}}/ - {{ thread.comment }} {% endblock %}
+{% block header %}
+<h1 align="center"><a href="{% url 'djangoboard:board' thread.board.name %}"> /{{board.name}}/ -
+    {{board.short_description|default:"no description"}}</a></h1>
+{% endblock %}
+{% block content %}
+
+<div id="draggable">
+    <div id="draggable-header"><span class="close-button" onclick="toggle_visibility('draggable')">[x]</span>New Reply
+    </div>
+    {% include "djangoboard/post_form_snippet.html" %}
+</div>
+<script src="{% static 'djangoboard/draggable.js' %}"></script>
+<script src="{% static 'djangoboard/toggle_visibility.js' %}"></script>
+
+
+{% include "djangoboard/thread_snippet.html"%}
+<form action="/delete" method="post">
+    <input type="hidden" name="board" value="{{thread.board.name}}">
+    {% csrf_token %}
+    {% for post in posts %}
+    <div class="post-container" id="{{post.id}}">
+        <div class="post-info">
+            {% if moderation %}
+            <input type="checkbox" name="{{post.id}}">
+            {% endif %}
+            <span class="post-subject">{{ post.subject }}</span>
+            <span class="poster-name">{{ post.name }}</span>
+            <span class="post-date">{{ post.date }}</span>
+            <span onclick="reply_to_post({{post.id}})" class="post-id">&gt;&gt;{{ post.id }}</span>
+        </div>
+        {% include "djangoboard/attachments_snippet.html" with attachments=post.attachments.all%}
+
+        <div class="post-comment">{{ post.comment|postmarkup:displayed_post_ids }}</div>
+        <div class="replies">
+            {%for reply in post.replies.all%}
+            <i>Replies: </i>{{post.id|get_post_link:displayed_post_ids}}
+            {%endfor%}
+        </div>
+    </div>
+    {% endfor %}
+    {% if moderation %}
+    <div class="bottomleft">
+        <input type="submit" value="Delete">
+    </div>
+    {% endif %}
+</form>
+
+{% endblock %}

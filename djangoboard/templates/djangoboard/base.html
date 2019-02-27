@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Tvoi ded{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'djangoboard/general.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    {% block head %}{% endblock %}
+</head>
+
+<body class="nojs">
+<script src="{% static 'djangoboard/detect.js' %}"></script>
+<header>
+    <div class="topbar" align="center">
+        {% if request.user.is_authenticated %}
+        <a>{{ request.user }}</a>
+        {% else %}
+        <a href="{% url 'login' %}">login</a>
+        {% endif %}
+
+        <a href="{% url 'admin:index' %}">admin</a>
+    </div>
+    {%block header%}{%endblock%}
+</header>
+{% block content%}
+<h1 align="center">¯\_(ツ)_/¯</h1>
+{% endblock %}
+
+</body>
+</html>

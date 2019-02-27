@@ -1,0 +1,6 @@
+Django
+easy-thumbnails
+python-magic
+django-environ
+django-simple-captcha
+django-guardian

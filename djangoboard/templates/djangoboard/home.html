@@ -1,0 +1,16 @@
+{% extends "djangoboard/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 align="center">OwO</h1>
+<h6 align="center">ÒwÓ</h6>
+
+
+<div align="center" style="margin-top:100px;">
+    {% for board in boards %}
+    <p><a href="{% url 'djangoboard:board' board.name %}"> /{{board.name}}/ - {{board.short_description|default:"no
+        description"}}</a></p>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "djangoboard/base.html" %}
+
+{% block content %}
+
+You can delete posts on the following boards:
+{%for board in moderated_boards%}
+</br>
+<a href="{% url 'djangoboard:board' board.name%}">{{board.name}}</a>
+{%endfor%}
+{% endblock %}

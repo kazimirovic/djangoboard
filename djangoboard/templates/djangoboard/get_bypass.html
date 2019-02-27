@@ -1,0 +1,6 @@
+{% extends "djangoboard/base.html" %}
+
+{% block title %} Action requires verification {% endblock %}
+{% block content %}
+<a href="{% url 'djangoboard:captcha' %}" target="_blank">Get block bypass</a>
+{% endblock %}

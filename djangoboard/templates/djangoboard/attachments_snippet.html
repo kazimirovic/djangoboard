@@ -1,0 +1,15 @@
+{% load startswith %}
+{% load static %}
+<div class="attachments-container">
+    {% load thumbnail %}
+    {% for attachment in attachments %}
+
+    <a href="{{attachment.file.url}}">
+        {% if attachment.mime|startswith:"image" %}
+        <img src="{% thumbnail attachment.file 100x100 crop %}" alt="attached picture"/>
+        {% else %}
+        <img src="{% static " djangoboard/generic_file.png" %}" alt="attached file"/>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>

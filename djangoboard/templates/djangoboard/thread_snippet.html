@@ -1,0 +1,14 @@
+{% load postmarkup %}
+<div class="thread-container" id="thread-{{thread.id}}">
+
+    <div class="post-info">
+        <span class="post-subject">{{ thread.subject }}</span>
+        <span class="poster-name">{{ thread.name }}</span>
+        <span class="post-date">{{ thread.date }}</span>
+        <span class="post-id"><a href="{% url 'djangoboard:thread' thread.id%}">&gt;&gt;&gt;{{ thread.id }}</a></span>
+        <span class="thread-num-replies">{{ thread.num_replies }} repl{{ thread.num_replies|pluralize:"y,ies" }}</span>
+    </div>
+    {% include "djangoboard/attachments_snippet.html" with attachments=thread.attachments.all%}
+    <div class="post-comment">{{ thread.comment|postmarkup }}</div>
+
+</div>

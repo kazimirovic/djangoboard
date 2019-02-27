@@ -1,0 +1,14 @@
+{%block content%}
+{% if request.session.human %}
+<h1>You have a valid block bypass</h1>
+{%endif%}
+<form action="{% url 'djangoboard:captcha' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="hidden" value="{{next}}" name="next">
+    <input type="submit" value="Submit"/>
+</form>
+
+{%endblock%}
