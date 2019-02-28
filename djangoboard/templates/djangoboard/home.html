@@ -8,8 +8,7 @@
 
 <div align="center" style="margin-top:100px;">
     {% for board in boards %}
-    <p><a href="{% url 'djangoboard:board' board.name %}"> /{{board.name}}/ - {{board.short_description|default:"no
-        description"}}</a></p>
+    <p><a href="{% url 'djangoboard:board' board.name %}"> /{{board.name}}/ - {{ board.short_description|default:"no description" }}</a></p>
     {% endfor %}
 </div>
 
