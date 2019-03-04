@@ -80,7 +80,9 @@ div.thread-container {
 div.post-form label {
   float: left;
 }
-
+div.thread-container span.post-subject{
+     font-weight: bold;
+}
 @media screen and (min-width: 1025px) {
   .nojs #draggable {
     position: fixed;
