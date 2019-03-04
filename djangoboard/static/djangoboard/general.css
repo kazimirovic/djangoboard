@@ -80,9 +80,11 @@ div.thread-container {
 div.post-form label {
   float: left;
 }
+
 div.thread-container span.post-subject{
      font-weight: bold;
 }
+
 @media screen and (min-width: 1025px) {
   .nojs #draggable {
     position: fixed;
@@ -137,6 +139,11 @@ div.thread-container span.post-subject{
   .js .post-id {
     cursor: pointer;
   }
+
+  div.jumbotron{
+  width: 70%;
+  }
+
 }
 
 .topbar {
@@ -168,4 +175,12 @@ span.orange {
 div.replies {
   margin-left: 5px;
   font-size: small;
+}
+
+div.jumbotron{
+    margin-top:100px;
+    background-color: var(--second-background-color);
+    border-radius: 25px;
+    height:100%;
+    margin: 0 auto;
 }

@@ -2,14 +2,19 @@
 {% load static %}
 
 {% block content %}
-<h1 align="center">OwO</h1>
+<h1 align="center">Noname</h1>
 <h6 align="center">ÒwÓ</h6>
+<div align="center">
+<img src="{% static "djangoboard/logo.svg" %}">
+    </div>
+<div align="center" class="jumbotron">
 
+    <br>
 
-<div align="center" style="margin-top:100px;">
     {% for board in boards %}
     <p><a href="{% url 'djangoboard:board' board.name %}"> /{{board.name}}/ - {{ board.short_description|default:"no description" }}</a></p>
     {% endfor %}
+    <br>
 </div>
 
 {% endblock %}
