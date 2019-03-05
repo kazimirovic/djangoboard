@@ -8,7 +8,7 @@ __all__ = ['Board', 'Post', 'Thread', 'Attachment']
 
 class Board(models.Model):
     name = models.CharField(max_length=10, unique=True, primary_key=True)
-    short_description = models.CharField(max_length=10, blank=True)
+    short_description = models.CharField(max_length=20, blank=True)
     description = models.CharField(max_length=500, blank=True)
 
     class Meta:
