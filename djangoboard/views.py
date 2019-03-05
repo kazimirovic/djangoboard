@@ -13,7 +13,7 @@ from .models import *
 
 
 def home(request: HttpRequest):
-    return render(request, 'djangoboard/home.html', {'boards': Board.objects.order_by('name')})
+    return render(request, 'djangoboard/home.html', {'boards': Board.objects.all()})
 
 
 def board(request: HttpRequest, boardname: str):
