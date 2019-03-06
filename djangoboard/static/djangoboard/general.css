@@ -140,9 +140,7 @@ div.thread-container span.post-subject{
     cursor: pointer;
   }
 
-  div.jumbotron{
-  width: 70%;
-  }
+
 
 }
 
@@ -183,4 +181,9 @@ div.jumbotron{
     border-radius: 25px;
     height:100%;
     margin: 0 auto;
+}
+@media screen and (min-width: 600px){
+  div.jumbotron{
+  width: 70%;
+  }
 }
