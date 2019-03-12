@@ -18,22 +18,25 @@ def home(request: HttpRequest):
 
 def board(request: HttpRequest, boardname: str):
     board_ = get_object_or_404(Board, name=boardname)
-
-    query = Thread.objects.filter(board=board_) \
-        .annotate(num_replies=Count('posts')) \
-        .annotate(last_bumped=Case(When(num_replies=0, then='date'), When(num_replies__gt=0, then=Max('posts__date')))) \
+    query = Thread.objects.filter(board=board_).annotate(num_replies=Count('posts')) \
+        .annotate(last_bumped=Case(
+            When(num_replies=0, then='date'),
+            When(num_replies__gt=0, then=Max('posts__date')))) \
         .order_by('-last_bumped') \
         .prefetch_related(Prefetch('posts',
                                    # Only a few of the latest posts need to be displayed
                                    queryset=Post.objects.filter(
                                        id__in=
                                        Subquery(
-                                           Post.objects.filter(thread_id=OuterRef('thread_id')) \
-                                               .values_list('id', flat=True)[:settings.DJANGOBOARD_POSTS_PREVIEWED]))
+                                           Post.objects.filter(
+                                               thread_id=OuterRef('thread_id')
+                                           ).values_list('id', flat=True)[:settings.DJANGOBOARD_POSTS_PREVIEWED])
+                                   )
                                    ),
                           'attachments',
                           'posts__attachments'
                           )
+
     return render(request, 'djangoboard/board.html',
                   {'board': board_,
                    'threads': query,

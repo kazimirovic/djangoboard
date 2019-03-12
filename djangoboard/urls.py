@@ -29,4 +29,3 @@ urlpatterns = [
 ]
 if settings.DEBUG:  # otherwise should be configured using server software
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
