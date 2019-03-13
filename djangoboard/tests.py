@@ -137,6 +137,20 @@ class BoardViewTest(TestCase):
         self.assertIsInstance(form, ThreadForm)
         self.assertEqual(form.initial['board'], b.name)
 
+    def test_num_queries(self):
+        b = Board.objects.create(name='b')
+
+        thread1 = Thread.objects.create(board=b, comment='test thread')
+        thread1_replies = [Post(thread=thread1) for _ in range(10)]
+
+        thread2 = Thread.objects.create(board=b, comment='test thread2')
+        thread2_replies = [Post(thread=thread2) for _ in range(10)]
+
+        Post.objects.bulk_create(thread1_replies + thread2_replies)
+
+        with self.assertNumQueries(6):
+            self.client.get(reverse('djangoboard:board', args=[b.name]))
+
 
 class ThreadViewTest(TestCase):
     def setUp(self):
