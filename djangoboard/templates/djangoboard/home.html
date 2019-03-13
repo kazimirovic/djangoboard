@@ -11,7 +11,7 @@
 
     <br>
 
-    {% for board in boards %}
+    {% for board in object_list %}
     <p><a href="{% url 'djangoboard:board' board.name %}"> /{{board.name}}/ - {{ board.short_description|default:"no description" }}</a></p>
     {% endfor %}
     <br>

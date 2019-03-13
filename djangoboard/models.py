@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 __all__ = ['Board', 'Post', 'Thread', 'Attachment']
@@ -22,13 +23,13 @@ class Board(models.Model):
 
 
 class AbstractPost(models.Model):
-    class Meta:
-        abstract = True
-
     name = models.CharField(max_length=40, default='Anonymous', blank=True)
     subject = models.CharField(max_length=100, blank=True)
     comment = models.CharField(max_length=1000, blank=True, null=True)
     date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        abstract = True
 
 
 class Post(AbstractPost):
@@ -39,6 +40,11 @@ class Post(AbstractPost):
     class Meta:
         ordering = ['date']
 
+    def get_absolute_url(self):
+        return "%s#%s" % (
+            reverse('djangoboard:thread', args=[self.thread.id]),
+            self.id)
+
     def __str__(self):
         return '%i:%s' % (self.id, self.comment[:15])
 
@@ -46,6 +52,9 @@ class Post(AbstractPost):
 class Thread(AbstractPost):
     board = models.ForeignKey('Board', on_delete=models.CASCADE, related_name='threads')
     attachments = GenericRelation('Attachment')
+
+    def get_absolute_url(self):
+        return reverse('djangoboard:thread', args=[self.id])
 
     def __str__(self):
         return '%i:%s' % (self.id, self.comment[:15])

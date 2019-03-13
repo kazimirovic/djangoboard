@@ -7,10 +7,10 @@ from . import views
 
 app_name = 'djangoboard'
 urlpatterns = [
-    path('', views.home, name='homepage'),
+    path('', views.HomePageView.as_view(), name='homepage'),
 
-    path('new_post', views.new_post, name='new_post'),
-    path('new_thread', views.new_thread, name='new_thread'),
+    path('new_post', views.CreatePostView.as_view(), name='new_post'),
+    path('new_thread', views.CreateThreadView.as_view(), name='new_thread'),
 
     path('post/<int:post_id>', views.post, name='post'),
     path('thread/<int:thread_id>', views.thread, name='thread'),
