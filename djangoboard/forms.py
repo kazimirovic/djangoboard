@@ -19,7 +19,7 @@ class AbstractPostForm(forms.ModelForm):
             raise forms.ValidationError("Post is empty")
 
         if len(MultiValueDict(self.files).getlist('attachments_')) > 2:
-            raise forms.ValidationError("Too many attachments_")
+            raise forms.ValidationError("Too many attachments")
 
     def save(self):
         post = super().save()
